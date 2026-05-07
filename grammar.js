@@ -172,13 +172,33 @@
   (PRECEDENCE_SYMBOL = 188), // prec: 94, assoc: Associativity`NonRight
   (PRECEDENCE_UNDER = 188), // prec: 94, assoc: Associativity`NonRight
   (PRECEDENCE_ASSERTFALSE = 190), // prec: 95, assoc: Associativity`NonRight
-  // Base pattern for a symbol name segment (no context backticks)
-  (SYMBOL_NAME = /[$a-zA-Z][$a-zA-Z0-9]*/),
+  // Base pattern for a symbol name segment (no context backticks).
+  // A segment may contain named characters (\[Foo]) interleaved with
+  // ordinary identifier characters; it must start with a letter, $, or
+  // a named character.
+  (NAMED_CHAR_PATTERN = /\\\[[A-Z][a-zA-Z]*\]/.source),
+  // Line continuation: backslash + newline. Allowed inside tokens because
+  // notebook serialization can hard-wrap symbols across backticks.
+  (LINE_CONT_PATTERN = /\\\r?\n/.source),
+  (SYMBOL_NAME = new RegExp(
+    `(${NAMED_CHAR_PATTERN}|[$a-zA-Z])(${NAMED_CHAR_PATTERN}|[$a-zA-Z0-9])*`
+  )),
+  // The first segment of a symbol must start with [$a-zA-Z] (no leading
+  // named character) so that a bare `\[Alpha]` still parses as
+  // named_character rather than as a symbol. Segments after a backtick
+  // may start with a named character.
+  (SYMBOL_PATTERN = new RegExp(
+    `\`?[$a-zA-Z]` +
+      `(${NAMED_CHAR_PATTERN}|[$a-zA-Z0-9]|${LINE_CONT_PATTERN})*` +
+      `(\`(${LINE_CONT_PATTERN})*` +
+      `(${NAMED_CHAR_PATTERN}|[$a-zA-Z])` +
+      `(${NAMED_CHAR_PATTERN}|[$a-zA-Z0-9]|${LINE_CONT_PATTERN})*)*`
+  )),
 
   (module.exports = grammar({
     name: "wolfram",
 
-    extras: ($) => [$.comment, /\s/],
+    extras: ($) => [$.comment, /\s/, /\\\r?\n/],
 
     externals: ($) => [$.comment],
 
@@ -232,11 +252,13 @@
 
       _leaf: ($) => choice($.symbol, $.integer, $.real, $.string, $.slot, $.slot_sequence, $.blank, $.blank_default, $.blank_sequence, $.blank_null_sequence, $.named_character, $.out),
 
-      symbol: ($) => token(seq(optional("`"), repeat(seq(SYMBOL_NAME, "`")), SYMBOL_NAME)),
+      symbol: ($) => token(SYMBOL_PATTERN),
 
-      integer: ($) => /([0-9]+\^\^[0-9a-zA-Z]+|[0-9]+)`{0,2}[0-9]*(\*\^-?[0-9]+)?/,
+      // The precision/accuracy after `/`` can itself be a real number,
+      // e.g. 1.`16. or 8`20. — the trailing decimal is part of the precision.
+      integer: ($) => /([0-9]+\^\^[0-9a-zA-Z]+|[0-9]+)(`{1,2}([0-9]+(\.[0-9]*)?|\.[0-9]+)?)?(\*(\\\r?\n)?\^(\\\r?\n)?-?(\\\r?\n)?[0-9]+)?/,
 
-      real: ($) => /(([0-9]+\^\^)([0-9a-zA-Z]+\.[0-9a-zA-Z]*|\.[0-9a-zA-Z]+)|[0-9]+\.[0-9]*|\.[0-9]+)`{0,2}[0-9]*(\*\^-?[0-9]+)?/,
+      real: ($) => /(([0-9]+\^\^)([0-9a-zA-Z]+\.[0-9a-zA-Z]*|\.[0-9a-zA-Z]+)|[0-9]+\.[0-9]*|\.[0-9]+)(`{1,2}([0-9]+(\.[0-9]*)?|\.[0-9]+)?)?(\*(\\\r?\n)?\^(\\\r?\n)?-?(\\\r?\n)?[0-9]+)?/,
 
       string: ($) => /\"([^\"\\]|\\(.|\n))*\"/,
 

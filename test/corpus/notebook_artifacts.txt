@@ -1,0 +1,169 @@
+; Real-world notebook serialization artifacts.
+; Doc notebooks (.nb) hard-wrap long lines using "\<LF>" line continuations,
+; sometimes splitting tokens (symbols, numbers) across the wrap. They also
+; embed named characters inside context-prefixed symbols.
+
+================
+Line continuation between tokens
+================
+
+1 +\
+2
+
+---
+
+(source_file
+  (infix
+    (integer)
+    (integer)))
+
+================
+Line continuation in call
+================
+
+f[\
+x]
+
+---
+
+(source_file
+  (call
+    head: (symbol)
+    arguments: (symbol)))
+
+================
+Line continuation joins identifier characters
+================
+
+ab\
+cd
+
+---
+
+(source_file
+  (symbol))
+
+================
+Line continuation across context backtick
+================
+
+Context`\
+foo
+
+---
+
+(source_file
+  (symbol))
+
+================
+Named character inside symbol context
+================
+
+$CellContext`\[Tau]i
+
+---
+
+(source_file
+  (symbol))
+
+================
+Named character inside symbol context (capital)
+================
+
+WSMLink`Results`Plot`Private`\[Null]
+
+---
+
+(source_file
+  (symbol))
+
+================
+Named character mixed with letters in segment
+================
+
+Context`\[Tau]Beta
+
+---
+
+(source_file
+  (symbol))
+
+================
+Standalone named character is not a symbol
+================
+
+\[Alpha]
+
+---
+
+(source_file
+  (named_character))
+
+================
+Real-valued precision
+================
+
+8`20.
+
+---
+
+(source_file
+  (integer))
+
+================
+Real precision with trailing dot on real
+================
+
+1.`16.
+
+---
+
+(source_file
+  (real))
+
+================
+Real precision with full real value
+================
+
+3.59925`24.445969709972413
+
+---
+
+(source_file
+  (real))
+
+================
+Scientific notation split across line continuation (after star)
+================
+
+1.234*\
+^9
+
+---
+
+(source_file
+  (real))
+
+================
+Scientific notation split across line continuation (after caret)
+================
+
+1.234*^\
+9
+
+---
+
+(source_file
+  (real))
+
+================
+Real precision with scientific notation split
+================
+
+3.59925`24.445*\
+^9
+
+---
+
+(source_file
+  (real))
