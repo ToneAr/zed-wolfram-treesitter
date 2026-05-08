@@ -143,50 +143,17 @@
     "symbol": {
       "type": "TOKEN",
       "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "`"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          },
-          {
-            "type": "REPEAT",
-            "content": {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "PATTERN",
-                  "value": "[$a-zA-Z][$a-zA-Z0-9]*"
-                },
-                {
-                  "type": "STRING",
-                  "value": "`"
-                }
-              ]
-            }
-          },
-          {
-            "type": "PATTERN",
-            "value": "[$a-zA-Z][$a-zA-Z0-9]*"
-          }
-        ]
+        "type": "PATTERN",
+        "value": "`?[$a-zA-Z](\\\\\\[[A-Z][a-zA-Z]*\\]|[$a-zA-Z0-9]|\\\\\\r?\\n)*(`(\\\\\\r?\\n)*(\\\\\\[[A-Z][a-zA-Z]*\\]|[$a-zA-Z])(\\\\\\[[A-Z][a-zA-Z]*\\]|[$a-zA-Z0-9]|\\\\\\r?\\n)*)*"
       }
     },
     "integer": {
       "type": "PATTERN",
-      "value": "([0-9]+\\^\\^[0-9a-zA-Z]+|[0-9]+)`{0,2}[0-9]*(\\*\\^-?[0-9]+)?"
+      "value": "([0-9]+\\^\\^[0-9a-zA-Z]+|[0-9]+)(`{1,2}([0-9]+(\\.[0-9]*)?|\\.[0-9]+)?)?(\\*(\\\\\\r?\\n)?\\^(\\\\\\r?\\n)?-?(\\\\\\r?\\n)?[0-9]+)?"
     },
     "real": {
       "type": "PATTERN",
-      "value": "(([0-9]+\\^\\^)([0-9a-zA-Z]+\\.[0-9a-zA-Z]*|\\.[0-9a-zA-Z]+)|[0-9]+\\.[0-9]*|\\.[0-9]+)`{0,2}[0-9]*(\\*\\^-?[0-9]+)?"
+      "value": "(([0-9]+\\^\\^)([0-9a-zA-Z]+\\.[0-9a-zA-Z]*|\\.[0-9a-zA-Z]+)|[0-9]+\\.[0-9]*|\\.[0-9]+)(`{1,2}([0-9]+(\\.[0-9]*)?|\\.[0-9]+)?)?(\\*(\\\\\\r?\\n)?\\^(\\\\\\r?\\n)?-?(\\\\\\r?\\n)?[0-9]+)?"
     },
     "string": {
       "type": "PATTERN",
@@ -237,7 +204,7 @@
                   },
                   {
                     "type": "PATTERN",
-                    "value": "[$a-zA-Z][$a-zA-Z0-9]*"
+                    "value": "(\\\\\\[[A-Z][a-zA-Z]*\\]|[$a-zA-Z])(\\\\\\[[A-Z][a-zA-Z]*\\]|[$a-zA-Z0-9])*"
                   },
                   {
                     "type": "SEQ",
@@ -440,7 +407,7 @@
               "type": "IMMEDIATE_TOKEN",
               "content": {
                 "type": "PATTERN",
-                "value": "[$a-zA-Z][$a-zA-Z0-9]*"
+                "value": "(\\\\\\[[A-Z][a-zA-Z]*\\]|[$a-zA-Z])(\\\\\\[[A-Z][a-zA-Z]*\\]|[$a-zA-Z0-9])*"
               }
             },
             "named": true,
@@ -465,7 +432,7 @@
                       "type": "IMMEDIATE_TOKEN",
                       "content": {
                         "type": "PATTERN",
-                        "value": "[$a-zA-Z][$a-zA-Z0-9]*"
+                        "value": "(\\\\\\[[A-Z][a-zA-Z]*\\]|[$a-zA-Z])(\\\\\\[[A-Z][a-zA-Z]*\\]|[$a-zA-Z0-9])*"
                       }
                     },
                     "named": true,
@@ -1950,6 +1917,23 @@
           }
         },
         {
+          "type": "PREC_RIGHT",
+          "value": 4,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_expression"
+              },
+              {
+                "type": "STRING",
+                "value": ";"
+              }
+            ]
+          }
+        },
+        {
           "type": "PREC_LEFT",
           "value": 36,
           "content": {
@@ -2983,6 +2967,10 @@
     {
       "type": "PATTERN",
       "value": "\\s"
+    },
+    {
+      "type": "PATTERN",
+      "value": "\\\\\\r?\\n"
     }
   ],
   "conflicts": [
