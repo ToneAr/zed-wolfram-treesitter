@@ -14,12 +14,11 @@
     "description": "Tree-sitter grammar for Wolfram Language",
     "authors": [
       {
-        "name": "Giulio Alessandrini",
-        "email": "giulio.a@gmail.com"
+        "name": "Brenton Bostick"
       }
     ],
     "links": {
-      "repository": "https://github.com/batracos/zed-wolfram-treesitter"
+      "repository": "https://github.com/riccardodivirgilio/zed-wolfram-treesitter"
     }
   }
 }
