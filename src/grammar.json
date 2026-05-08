@@ -1917,6 +1917,23 @@
           }
         },
         {
+          "type": "PREC_RIGHT",
+          "value": 4,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_expression"
+              },
+              {
+                "type": "STRING",
+                "value": ";"
+              }
+            ]
+          }
+        },
+        {
           "type": "PREC_LEFT",
           "value": 36,
           "content": {

@@ -167,3 +167,65 @@ Real precision with scientific notation split
 
 (source_file
   (real))
+
+================
+Trailing semicolon - standalone (CompoundExpression with implicit Null)
+================
+
+a;
+
+---
+
+(source_file
+  (infix
+    (symbol)))
+
+================
+Trailing semicolon - inside call as last argument
+================
+
+f[a, b;]
+
+---
+
+(source_file
+  (call
+    head: (symbol)
+    arguments: (infix
+      (symbol)
+      (infix
+        (symbol)))))
+
+================
+Trailing semicolon - inside call as middle argument
+================
+
+f[a, b;, c]
+
+---
+
+(source_file
+  (call
+    head: (symbol)
+    arguments: (infix
+      (infix
+        (symbol)
+        (infix
+          (symbol)))
+      (symbol))))
+
+================
+Trailing semicolon - terminating a chain of statements
+================
+
+a; b; c;
+
+---
+
+(source_file
+  (infix
+    (infix
+      (infix
+        (symbol)
+        (symbol))
+      (symbol))))

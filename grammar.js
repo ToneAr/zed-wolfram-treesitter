@@ -492,6 +492,12 @@
         choice(
           prec.left(PRECEDENCE_COMMA, seq($._expression, ",", $._expression)),
           prec.left(PRECEDENCE_SEMI, seq($._expression, ";", $._expression)),
+          // Trailing `;` (CompoundExpression[..., Null]) — `a;`, `f[a, b;]`,
+          // `f[a, b;, c]`. `prec.right` (vs the binary form's `prec.left`)
+          // at the same precedence makes tree-sitter resolve the `a ; · b`
+          // shift/reduce in favor of shift, so `a; b` becomes the binary
+          // form rather than `(a;)` followed by an implicit_times with `b`.
+          prec.right(PRECEDENCE_SEMI, seq($._expression, ";")),
           prec.left(
             PRECEDENCE_TILDETILDE,
             seq($._expression, "~~", $._expression),
