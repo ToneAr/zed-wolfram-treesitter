@@ -1,0 +1,8 @@
+# Rust artifacts
+target/
+Cargo.lock
+
+# Grammar volatiles
+*.wasm
+*.obj
+*.o
