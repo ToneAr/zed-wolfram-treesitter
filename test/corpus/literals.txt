@@ -315,4 +315,4 @@ my`contex`f[my`var`x]
 (source_file
   (call
     head: (symbol)
-    arguments: (symbol)))
+    argument: (symbol)))

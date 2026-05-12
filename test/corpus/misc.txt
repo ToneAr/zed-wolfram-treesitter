@@ -98,7 +98,7 @@ f[#1 + #2] &
   (postfix
     (call
       head: (symbol)
-      arguments: (infix
+      argument: (infix
         (slot)
         (slot)))))
 
@@ -166,16 +166,13 @@ Tilde infix - call form
 (source_file
   (tilde
     (group
-      (infix
-        (infix
-          (integer)
-          (integer))
-        (integer)))
+      element: (integer)
+      element: (integer)
+      element: (integer))
     function: (symbol)
     (group
-      (infix
-        (integer)
-        (integer)))))
+      element: (integer)
+      element: (integer))))
 
 ================
 Named character - standalone
@@ -198,9 +195,8 @@ Named character - in list
 
 (source_file
   (group
-    (infix
-      (named_character)
-      (named_character))))
+    element: (named_character)
+    element: (named_character)))
 
 ================
 Named character - Rule operator

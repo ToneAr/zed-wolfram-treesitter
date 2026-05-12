@@ -133,7 +133,7 @@ f[x_ : 1]
 (source_file
   (call
     head: (symbol)
-    arguments: (binary
+    argument: (binary
       (pattern
         name: (symbol)
         constraint: (blank))
@@ -183,13 +183,12 @@ f[x_, y_] := x + y
   (binary
     (call
       head: (symbol)
-      arguments: (infix
-        (pattern
-          name: (symbol)
-          constraint: (blank))
-        (pattern
-          name: (symbol)
-          constraint: (blank))))
+      argument: (pattern
+        name: (symbol)
+        constraint: (blank))
+      argument: (pattern
+        name: (symbol)
+        constraint: (blank)))
     (infix
       (symbol)
       (symbol))))
@@ -207,7 +206,7 @@ f[x_] /; x > 0 := x
     (binary
       (call
         head: (symbol)
-        arguments: (pattern
+        argument: (pattern
           name: (symbol)
           constraint: (blank)))
       (infix
@@ -284,13 +283,12 @@ Repeated - pattern in list
 (source_file
   (postfix
     (group
-      (infix
-        (pattern
-          name: (symbol)
-          constraint: (blank))
-        (pattern
-          name: (symbol)
-          constraint: (blank))))))
+      element: (pattern
+        name: (symbol)
+        constraint: (blank))
+      element: (pattern
+        name: (symbol)
+        constraint: (blank)))))
 
 ================
 RepeatedNull - pattern in list
@@ -303,13 +301,12 @@ RepeatedNull - pattern in list
 (source_file
   (postfix
     (group
-      (infix
-        (pattern
-          name: (symbol)
-          constraint: (blank))
-        (pattern
-          name: (symbol)
-          constraint: (blank))))))
+      element: (pattern
+        name: (symbol)
+        constraint: (blank))
+      element: (pattern
+        name: (symbol)
+        constraint: (blank)))))
 
 ================
 Repeated in list pattern
@@ -322,9 +319,8 @@ Repeated in list pattern
 (source_file
   (postfix
     (group
-      (infix
-        (blank)
-        (blank)))))
+      element: (blank)
+      element: (blank))))
 
 ================
 Optional with explicit default
@@ -338,15 +334,14 @@ f[x_, k_:kdef] := x + k
   (binary
     (call
       head: (symbol)
-      arguments: (infix
+      argument: (pattern
+        name: (symbol)
+        constraint: (blank))
+      argument: (binary
         (pattern
           name: (symbol)
           constraint: (blank))
-        (binary
-          (pattern
-            name: (symbol)
-            constraint: (blank))
-          (symbol))))
+        (symbol)))
     (infix
       (symbol)
       (symbol))))

@@ -21,7 +21,7 @@ f[x]
 (source_file
   (call
     head: (symbol)
-    arguments: (symbol)))
+    argument: (symbol)))
 
 ================
 Function call - multiple arguments
@@ -34,9 +34,8 @@ f[x, y]
 (source_file
   (call
     head: (symbol)
-    arguments: (infix
-      (symbol)
-      (symbol))))
+    argument: (symbol)
+    argument: (symbol)))
 
 ================
 Part extraction
@@ -49,7 +48,7 @@ a[[1]]
 (source_file
   (part
     head: (symbol)
-    arguments: (integer)))
+    argument: (integer)))
 
 ================
 Part extraction - multiple indices
@@ -62,9 +61,8 @@ a[[1, 2]]
 (source_file
   (part
     head: (symbol)
-    arguments: (infix
-      (integer)
-      (integer))))
+    argument: (integer)
+    argument: (integer)))
 
 ; ================
 ; Span - both bounds
@@ -109,7 +107,7 @@ a[[;;4]]
 (source_file
   (part
     head: (symbol)
-    arguments: (span
+    argument: (span
       (integer))))
 
 ================
@@ -123,7 +121,7 @@ a[[;;]]
 (source_file
   (part
     head: (symbol)
-    arguments: (span)))
+    argument: (span)))
 
 ================
 Nested function call
@@ -136,9 +134,9 @@ f[g[x]]
 (source_file
   (call
     head: (symbol)
-    arguments: (call
+    argument: (call
       head: (symbol)
-      arguments: (symbol))))
+      argument: (symbol))))
 
 ================
 Addition
@@ -178,7 +176,7 @@ f[x] := x
   (binary
     (call
       head: (symbol)
-      arguments: (symbol))
+      argument: (symbol))
     (symbol)))
 
 ================
@@ -269,9 +267,8 @@ f @@ {1, 2}
   (binary
     (symbol)
     (group
-      (infix
-        (integer)
-        (integer)))))
+      element: (integer)
+      element: (integer))))
 
 ================
 Association
@@ -283,13 +280,12 @@ Association
 
 (source_file
   (group
-    (infix
-      (binary
-        (symbol)
-        (integer))
-      (binary
-        (symbol)
-        (integer)))))
+    element: (binary
+      (symbol)
+      (integer))
+    element: (binary
+      (symbol)
+      (integer))))
 
 ================
 List
@@ -301,11 +297,9 @@ List
 
 (source_file
   (group
-    (infix
-      (infix
-        (integer)
-        (integer))
-      (integer))))
+    element: (integer)
+    element: (integer)
+    element: (integer)))
 
 ================
 Parenthesized expression
@@ -332,7 +326,7 @@ f["hello"]
 (source_file
   (call
     head: (symbol)
-    arguments: (string)))
+    argument: (string)))
 
 ================
 Compound expression
@@ -373,7 +367,7 @@ f /: f[x_] =.
       (symbol)
       (call
         head: (symbol)
-        arguments: (pattern
+        argument: (pattern
           name: (symbol)
           constraint: (blank))))))
 
@@ -391,7 +385,7 @@ f /: f[x_] := 1
       (symbol)
       (call
         head: (symbol)
-        arguments: (pattern
+        argument: (pattern
           name: (symbol)
           constraint: (blank))))
     (integer)))
@@ -410,7 +404,7 @@ f /: f[x_] = 1
       (symbol)
       (call
         head: (symbol)
-        arguments: (pattern
+        argument: (pattern
           name: (symbol)
           constraint: (blank))))
     (integer)))
@@ -467,7 +461,7 @@ f[x]::usage
   (message_name
     (call
       head: (symbol)
-      arguments: (symbol))
+      argument: (symbol))
     (message_tag)))
 
 ================
@@ -516,7 +510,7 @@ TypeSpecifier - string shortform
 (source_file
   (type_specifier
     (string)
-    arguments: (string)))
+    argument: (string)))
 
 ================
 TypeSpecifier - multiple arguments
@@ -529,9 +523,8 @@ TypeSpecifier - multiple arguments
 (source_file
   (type_specifier
     (string)
-    arguments: (infix
-      (string)
-      (integer))))
+    argument: (string)
+    argument: (integer)))
 
 ================
 TypeSpecifier - symbol head
@@ -544,12 +537,10 @@ a::[c, d, =[e]]
 (source_file
   (type_specifier
     (symbol)
-    arguments: (infix
-      (infix
-        (symbol)
-        (symbol))
-      (freeform_evaluate
-        (freeform_content)))))
+    argument: (symbol)
+    argument: (symbol)
+    argument: (freeform_evaluate
+      (freeform_content))))
 
 ================
 Implicit times - adjacent symbols
@@ -589,7 +580,7 @@ a::[21
 (source_file
   (type_specifier
     (symbol)
-    arguments: (implicit_times
+    argument: (implicit_times
       (integer)
       (integer))))
 
@@ -638,3 +629,132 @@ Implicit times - groups
       (infix
         (symbol)
         (integer)))))
+
+================
+Comma - empty middle slot (Null injection)
+================
+
+f[a,,b]
+
+---
+
+(source_file
+  (call
+    head: (symbol)
+    argument: (symbol)
+    argument: (empty_slot)
+    argument: (symbol)))
+
+================
+Comma - trailing empty slot
+================
+
+f[a,]
+
+---
+
+(source_file
+  (call
+    head: (symbol)
+    argument: (symbol)
+    argument: (empty_slot)))
+
+================
+Comma - leading empty slot
+================
+
+f[,a]
+
+---
+
+(source_file
+  (call
+    head: (symbol)
+    argument: (empty_slot)
+    argument: (symbol)))
+
+================
+Comma - list with only commas
+================
+
+{,}
+
+---
+
+(source_file
+  (group
+    element: (empty_slot)
+    element: (empty_slot)))
+
+================
+Comma - multiple consecutive empty slots
+================
+
+f[,,a]
+
+---
+
+(source_file
+  (call
+    head: (symbol)
+    argument: (empty_slot)
+    argument: (empty_slot)
+    argument: (symbol)))
+
+================
+Comma - empty middle and trailing
+================
+
+f[a,,]
+
+---
+
+(source_file
+  (call
+    head: (symbol)
+    argument: (symbol)
+    argument: (empty_slot)
+    argument: (empty_slot)))
+
+================
+Comma - part with trailing empty slot
+================
+
+f[[a,]]
+
+---
+
+(source_file
+  (part
+    head: (symbol)
+    argument: (symbol)
+    argument: (empty_slot)))
+
+================
+Comma - association with trailing empty slot
+================
+
+<|a -> 1,|>
+
+---
+
+(source_file
+  (group
+    element: (binary
+      (symbol)
+      (integer))
+    element: (empty_slot)))
+
+================
+Parenthesized group rejects comma
+================
+
+(a, b)
+
+---
+
+(source_file
+  (group
+    (symbol)
+    (ERROR
+      (UNEXPECTED 'b'))))
