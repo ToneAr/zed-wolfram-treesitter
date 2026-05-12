@@ -3,7 +3,9 @@
 #include <wctype.h>
 
 enum TokenType {
-  COMMENT
+  COMMENT,
+  EMPTY_SLOT_LEADING,
+  EMPTY_SLOT_TRAILING,
 };
 
 static bool scan_comment(TSLexer *lexer) {
@@ -62,10 +64,40 @@ void tree_sitter_wolfram_external_scanner_deserialize(void *payload, const char 
 
 bool tree_sitter_wolfram_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
   (void)payload;
-  (void)valid_symbols;
 
   while (iswspace(lexer->lookahead)) {
     lexer->advance(lexer, true);
+  }
+
+  // Zero-width empty-slot tokens. The grammar (`commaList`) puts these in
+  // valid_symbols only at slot positions inside `[ ]`, `[[ ]]`, `{ }`, and
+  // `<| |>`. `_leading` fires when the slot is followed by `,`; `_trailing`
+  // fires at the last slot, right before the closing bracket. We never
+  // advance for these — the token is zero-width.
+  if (valid_symbols[EMPTY_SLOT_LEADING] && lexer->lookahead == ',') {
+    lexer->mark_end(lexer);
+    lexer->result_symbol = EMPTY_SLOT_LEADING;
+    return true;
+  }
+  if (valid_symbols[EMPTY_SLOT_TRAILING]) {
+    int32_t c = lexer->lookahead;
+    if (c == ']' || c == '}') {
+      lexer->mark_end(lexer);
+      lexer->result_symbol = EMPTY_SLOT_TRAILING;
+      return true;
+    }
+    if (c == '|') {
+      // Only fire when this is the start of `|>` (Association close), not
+      // a stray `|` infix operator. Peek past `|`; mark_end before the peek
+      // so the produced token stays zero-width regardless of what follows.
+      lexer->mark_end(lexer);
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '>') {
+        lexer->result_symbol = EMPTY_SLOT_TRAILING;
+        return true;
+      }
+      return false;
+    }
   }
 
   if (lexer->lookahead == '(') {

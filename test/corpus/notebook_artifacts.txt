@@ -1,8 +1,3 @@
-; Real-world notebook serialization artifacts.
-; Doc notebooks (.nb) hard-wrap long lines using "\<LF>" line continuations,
-; sometimes splitting tokens (symbols, numbers) across the wrap. They also
-; embed named characters inside context-prefixed symbols.
-
 ================
 Line continuation between tokens
 ================
@@ -29,7 +24,7 @@ x]
 (source_file
   (call
     head: (symbol)
-    arguments: (symbol)))
+    argument: (symbol)))
 
 ================
 Line continuation joins identifier characters
@@ -191,10 +186,9 @@ f[a, b;]
 (source_file
   (call
     head: (symbol)
-    arguments: (infix
-      (symbol)
-      (infix
-        (symbol)))))
+    argument: (symbol)
+    argument: (infix
+      (symbol))))
 
 ================
 Trailing semicolon - inside call as middle argument
@@ -207,12 +201,10 @@ f[a, b;, c]
 (source_file
   (call
     head: (symbol)
-    arguments: (infix
-      (infix
-        (symbol)
-        (infix
-          (symbol)))
-      (symbol))))
+    argument: (symbol)
+    argument: (infix
+      (symbol))
+    argument: (symbol)))
 
 ================
 Trailing semicolon - terminating a chain of statements

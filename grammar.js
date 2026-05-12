@@ -1,6 +1,4 @@
 ((PRECEDENCE_LOWEST = 0), // prec: 0, assoc: Associativity`NonRight
-  (PRECEDENCE_COMMA = 2), // prec: 1, assoc: Associativity`NonRight
-  (PRECEDENCE_LONGNAME_INVISIBLECOMMA = 2), // prec: 1, assoc: Associativity`NonRight
   (PRECEDENCE_SEMI = 4), // prec: 2, assoc: Associativity`NonRight
   (PRECEDENCE_GREATERGREATER = 6), // prec: 3, assoc: Associativity`NonRight
   (PRECEDENCE_GREATERGREATERGREATER = 6), // prec: 3, assoc: Associativity`NonRight
@@ -195,12 +193,39 @@
       `(${NAMED_CHAR_PATTERN}|[$a-zA-Z0-9]|${LINE_CONT_PATTERN})*)*`
   )),
 
+  // `commaList($, "fieldName")` produces a comma-separated body where every
+  // slot — including syntactically empty ones (`f[a,,b]`, `f[a,]`, `f[,a]`,
+  // WL-legal Null-injections) — is materialized as a field-tagged child.
+  // Empty slots are zero-width `empty_slot` nodes produced by the external
+  // scanner: `empty_slot_leading` fires when the slot is followed by `,`,
+  // `empty_slot_trailing` fires at the last slot just before the closing
+  // bracket. Both are aliased to a single `empty_slot` node type. The empty
+  // call form `f[]` is preserved by wrapping `commaList(...)` in `optional`
+  // at the call site; the scanner returns false when neither lookahead
+  // condition is met.
+  (commaListSlot = ($, name) =>
+    choice(
+      field(name, $._expression),
+      field(name, alias($.empty_slot_leading, $.empty_slot)),
+    )),
+  (commaListTrailingSlot = ($, name) =>
+    choice(
+      field(name, $._expression),
+      field(name, alias($.empty_slot_leading, $.empty_slot)),
+      field(name, alias($.empty_slot_trailing, $.empty_slot)),
+    )),
+  (commaList = ($, name) =>
+    seq(
+      commaListSlot($, name),
+      repeat(seq(",", commaListTrailingSlot($, name))),
+    )),
+
   (module.exports = grammar({
     name: "wolfram",
 
     extras: ($) => [$.comment, /\s/, /\\\r?\n/],
 
-    externals: ($) => [$.comment],
+    externals: ($) => [$.comment, $.empty_slot_leading, $.empty_slot_trailing],
 
     // implicit_times (expr expr) creates GLR ambiguity with certain operator
     // combinations. Only the conflict sets tree-sitter actually needs are listed.
@@ -328,7 +353,7 @@
           $._expression,
           "::",
           "[",
-          optional(field("arguments", $._expression)),
+          optional(commaList($, "argument")),
           "]",
         )),
 
@@ -489,7 +514,9 @@
 
       infix: ($) =>
         choice(
-          prec.left(PRECEDENCE_COMMA, seq($._expression, ",", $._expression)),
+          // `,` is intentionally not an infix operator. It is syntactic
+          // Null-injection inside bracket-shaped delimiters, handled by
+          // `commaList` in `call`, `part`, and `group`.
           prec.left(PRECEDENCE_SEMI, seq($._expression, ";", $._expression)),
           // Trailing `;` (CompoundExpression[..., Null]) — `a;`, `f[a, b;]`,
           // `f[a, b;, c]`. `prec.right` (vs the binary form's `prec.left`)
@@ -582,7 +609,7 @@
           seq(
             field("head", $._expression),
             "[",
-            optional(field("arguments", $._expression)),
+            optional(commaList($, "argument")),
             "]",
           ),
         ),
@@ -593,7 +620,7 @@
           seq(
             field("head", $._expression),
             "[[",
-            optional(field("arguments", $._expression)),
+            optional(commaList($, "argument")),
             "]]",
           ),
         ),
@@ -629,10 +656,12 @@
 
       group: ($) =>
         choice(
-          seq("{", optional($._expression), "}"),
+          seq("{", optional(commaList($, "element")), "}"),
+          // `(...)` is grouping, not a sequence: WL rejects `(a, b)`. So this
+          // arm intentionally does not accept `,`.
           seq("(", optional($._expression), ")"),
           seq("[", optional($._expression), "]"),
-          seq("<|", optional($._expression), "|>"),
+          seq("<|", optional(commaList($, "element")), "|>"),
         ),
     },
   })));
