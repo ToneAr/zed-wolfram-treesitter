@@ -45,16 +45,25 @@ void *tree_sitter_wolfram_external_scanner_create(void) {
 }
 
 void tree_sitter_wolfram_external_scanner_destroy(void *payload) {
+  (void)payload;
 }
 
 unsigned tree_sitter_wolfram_external_scanner_serialize(void *payload, char *buffer) {
+  (void)payload;
+  (void)buffer;
   return 0;
 }
 
 void tree_sitter_wolfram_external_scanner_deserialize(void *payload, const char *buffer, unsigned length) {
+  (void)payload;
+  (void)buffer;
+  (void)length;
 }
 
 bool tree_sitter_wolfram_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
+  (void)payload;
+  (void)valid_symbols;
+
   while (iswspace(lexer->lookahead)) {
     lexer->advance(lexer, true);
   }
