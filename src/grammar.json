@@ -51,6 +51,22 @@
         {
           "type": "SYMBOL",
           "name": "group"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "message_name"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "get"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "put"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "tilde_infix"
         }
       ]
     },
@@ -88,6 +104,18 @@
         {
           "type": "SYMBOL",
           "name": "blank_null_sequence"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "slot"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "slot_sequence"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "out"
         }
       ]
     },
@@ -1811,6 +1839,173 @@
           ]
         }
       ]
+    },
+    "slot": {
+      "type": "PREC",
+      "value": 188,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "#"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "IMMEDIATE_TOKEN",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "([a-zA-Z][a-zA-Z0-9$]*|[0-9]+)"
+                }
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "slot_sequence": {
+      "type": "PREC",
+      "value": 188,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "##"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "IMMEDIATE_TOKEN",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "[0-9]+"
+                }
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "out": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 188,
+        "content": {
+          "type": "PATTERN",
+          "value": "%%+|%[0-9]+|%"
+        }
+      }
+    },
+    "message_name": {
+      "type": "PREC_LEFT",
+      "value": 184,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_expression"
+          },
+          {
+            "type": "STRING",
+            "value": "::"
+          },
+          {
+            "type": "IMMEDIATE_TOKEN",
+            "content": {
+              "type": "PATTERN",
+              "value": "[a-zA-Z][a-zA-Z0-9$]*"
+            }
+          }
+        ]
+      }
+    },
+    "get": {
+      "type": "PREC",
+      "value": 182,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "<<"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_expression"
+          }
+        ]
+      }
+    },
+    "put": {
+      "type": "PREC_LEFT",
+      "value": 6,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_expression"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ">>>"
+              },
+              {
+                "type": "STRING",
+                "value": ">>"
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_expression"
+          }
+        ]
+      }
+    },
+    "tilde_infix": {
+      "type": "PREC_LEFT",
+      "value": 162,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_expression"
+          },
+          {
+            "type": "STRING",
+            "value": "~"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_expression"
+          },
+          {
+            "type": "STRING",
+            "value": "~"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_expression"
+          }
+        ]
+      }
     }
   },
   "extras": [

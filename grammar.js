@@ -195,9 +195,13 @@
           $.span,
           $.pattern,
           $.group,
+          $.message_name,
+          $.get,
+          $.put,
+          $.tilde_infix,
         ),
 
-      _leaf: ($) => choice($.symbol, $.integer, $.real, $.string, $.blank, $.blank_default, $.blank_sequence, $.blank_null_sequence),
+      _leaf: ($) => choice($.symbol, $.integer, $.real, $.string, $.blank, $.blank_default, $.blank_sequence, $.blank_null_sequence, $.slot, $.slot_sequence, $.out),
 
       symbol: ($) => /`?(\$?[a-zA-Z][a-zA-Z0-9\$]*`)*\$?[a-zA-Z][a-zA-Z0-9\$]*/,
 
@@ -477,5 +481,35 @@
           seq("[", optional($._expression), "]"),
           seq("<|", optional($._expression), "|>"),
         ),
+
+      slot: ($) => prec(PRECEDENCE_SYMBOL, seq(
+        "#",
+        optional(token.immediate(/([a-zA-Z][a-zA-Z0-9$]*|[0-9]+)/)),
+      )),
+
+      slot_sequence: ($) => prec(PRECEDENCE_SYMBOL, seq(
+        "##",
+        optional(token.immediate(/[0-9]+/)),
+      )),
+
+      out: ($) => token(prec(PRECEDENCE_SYMBOL, /%%+|%[0-9]+|%/)),
+
+      message_name: ($) => prec.left(PRECEDENCE_COLONCOLON, seq(
+        $._expression,
+        "::",
+        token.immediate(/[a-zA-Z][a-zA-Z0-9$]*/),
+      )),
+
+      get: ($) => prec(PRECEDENCE_LESSLESS, seq("<<", $._expression)),
+
+      put: ($) => prec.left(PRECEDENCE_GREATERGREATER, seq(
+        $._expression,
+        choice(">>>", ">>"),
+        $._expression,
+      )),
+
+      tilde_infix: ($) => prec.left(PRECEDENCE_TILDE, seq(
+        $._expression, "~", $._expression, "~", $._expression,
+      )),
     },
   })));

@@ -32,6 +32,10 @@
           "named": true
         },
         {
+          "type": "get",
+          "named": true
+        },
+        {
           "type": "group",
           "named": true
         },
@@ -41,6 +45,14 @@
         },
         {
           "type": "integer",
+          "named": true
+        },
+        {
+          "type": "message_name",
+          "named": true
+        },
+        {
+          "type": "out",
           "named": true
         },
         {
@@ -60,7 +72,19 @@
           "named": true
         },
         {
+          "type": "put",
+          "named": true
+        },
+        {
           "type": "real",
+          "named": true
+        },
+        {
+          "type": "slot",
+          "named": true
+        },
+        {
+          "type": "slot_sequence",
           "named": true
         },
         {
@@ -73,6 +97,10 @@
         },
         {
           "type": "symbol",
+          "named": true
+        },
+        {
+          "type": "tilde_infix",
           "named": true
         }
       ]
@@ -131,6 +159,10 @@
             "named": true
           },
           {
+            "type": "get",
+            "named": true
+          },
+          {
             "type": "group",
             "named": true
           },
@@ -140,6 +172,14 @@
           },
           {
             "type": "integer",
+            "named": true
+          },
+          {
+            "type": "message_name",
+            "named": true
+          },
+          {
+            "type": "out",
             "named": true
           },
           {
@@ -159,7 +199,19 @@
             "named": true
           },
           {
+            "type": "put",
+            "named": true
+          },
+          {
             "type": "real",
+            "named": true
+          },
+          {
+            "type": "slot",
+            "named": true
+          },
+          {
+            "type": "slot_sequence",
             "named": true
           },
           {
@@ -172,6 +224,10 @@
           },
           {
             "type": "symbol",
+            "named": true
+          },
+          {
+            "type": "tilde_infix",
             "named": true
           }
         ]
@@ -205,6 +261,10 @@
             "named": true
           },
           {
+            "type": "get",
+            "named": true
+          },
+          {
             "type": "group",
             "named": true
           },
@@ -214,6 +274,14 @@
           },
           {
             "type": "integer",
+            "named": true
+          },
+          {
+            "type": "message_name",
+            "named": true
+          },
+          {
+            "type": "out",
             "named": true
           },
           {
@@ -233,7 +301,19 @@
             "named": true
           },
           {
+            "type": "put",
+            "named": true
+          },
+          {
             "type": "real",
+            "named": true
+          },
+          {
+            "type": "slot",
+            "named": true
+          },
+          {
+            "type": "slot_sequence",
             "named": true
           },
           {
@@ -247,9 +327,120 @@
           {
             "type": "symbol",
             "named": true
+          },
+          {
+            "type": "tilde_infix",
+            "named": true
           }
         ]
       }
+    }
+  },
+  {
+    "type": "get",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "binary",
+          "named": true
+        },
+        {
+          "type": "blank",
+          "named": true
+        },
+        {
+          "type": "blank_default",
+          "named": true
+        },
+        {
+          "type": "blank_null_sequence",
+          "named": true
+        },
+        {
+          "type": "blank_sequence",
+          "named": true
+        },
+        {
+          "type": "call",
+          "named": true
+        },
+        {
+          "type": "get",
+          "named": true
+        },
+        {
+          "type": "group",
+          "named": true
+        },
+        {
+          "type": "infix",
+          "named": true
+        },
+        {
+          "type": "integer",
+          "named": true
+        },
+        {
+          "type": "message_name",
+          "named": true
+        },
+        {
+          "type": "out",
+          "named": true
+        },
+        {
+          "type": "part",
+          "named": true
+        },
+        {
+          "type": "pattern",
+          "named": true
+        },
+        {
+          "type": "postfix",
+          "named": true
+        },
+        {
+          "type": "prefix",
+          "named": true
+        },
+        {
+          "type": "put",
+          "named": true
+        },
+        {
+          "type": "real",
+          "named": true
+        },
+        {
+          "type": "slot",
+          "named": true
+        },
+        {
+          "type": "slot_sequence",
+          "named": true
+        },
+        {
+          "type": "span",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "symbol",
+          "named": true
+        },
+        {
+          "type": "tilde_infix",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -285,6 +476,10 @@
           "named": true
         },
         {
+          "type": "get",
+          "named": true
+        },
+        {
           "type": "group",
           "named": true
         },
@@ -294,6 +489,14 @@
         },
         {
           "type": "integer",
+          "named": true
+        },
+        {
+          "type": "message_name",
+          "named": true
+        },
+        {
+          "type": "out",
           "named": true
         },
         {
@@ -313,7 +516,19 @@
           "named": true
         },
         {
+          "type": "put",
+          "named": true
+        },
+        {
           "type": "real",
+          "named": true
+        },
+        {
+          "type": "slot",
+          "named": true
+        },
+        {
+          "type": "slot_sequence",
           "named": true
         },
         {
@@ -326,6 +541,10 @@
         },
         {
           "type": "symbol",
+          "named": true
+        },
+        {
+          "type": "tilde_infix",
           "named": true
         }
       ]
@@ -364,6 +583,10 @@
           "named": true
         },
         {
+          "type": "get",
+          "named": true
+        },
+        {
           "type": "group",
           "named": true
         },
@@ -373,6 +596,14 @@
         },
         {
           "type": "integer",
+          "named": true
+        },
+        {
+          "type": "message_name",
+          "named": true
+        },
+        {
+          "type": "out",
           "named": true
         },
         {
@@ -392,7 +623,19 @@
           "named": true
         },
         {
+          "type": "put",
+          "named": true
+        },
+        {
           "type": "real",
+          "named": true
+        },
+        {
+          "type": "slot",
+          "named": true
+        },
+        {
+          "type": "slot_sequence",
           "named": true
         },
         {
@@ -405,6 +648,117 @@
         },
         {
           "type": "symbol",
+          "named": true
+        },
+        {
+          "type": "tilde_infix",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "message_name",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "binary",
+          "named": true
+        },
+        {
+          "type": "blank",
+          "named": true
+        },
+        {
+          "type": "blank_default",
+          "named": true
+        },
+        {
+          "type": "blank_null_sequence",
+          "named": true
+        },
+        {
+          "type": "blank_sequence",
+          "named": true
+        },
+        {
+          "type": "call",
+          "named": true
+        },
+        {
+          "type": "get",
+          "named": true
+        },
+        {
+          "type": "group",
+          "named": true
+        },
+        {
+          "type": "infix",
+          "named": true
+        },
+        {
+          "type": "integer",
+          "named": true
+        },
+        {
+          "type": "message_name",
+          "named": true
+        },
+        {
+          "type": "out",
+          "named": true
+        },
+        {
+          "type": "part",
+          "named": true
+        },
+        {
+          "type": "pattern",
+          "named": true
+        },
+        {
+          "type": "postfix",
+          "named": true
+        },
+        {
+          "type": "prefix",
+          "named": true
+        },
+        {
+          "type": "put",
+          "named": true
+        },
+        {
+          "type": "real",
+          "named": true
+        },
+        {
+          "type": "slot",
+          "named": true
+        },
+        {
+          "type": "slot_sequence",
+          "named": true
+        },
+        {
+          "type": "span",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "symbol",
+          "named": true
+        },
+        {
+          "type": "tilde_infix",
           "named": true
         }
       ]
@@ -443,6 +797,10 @@
             "named": true
           },
           {
+            "type": "get",
+            "named": true
+          },
+          {
             "type": "group",
             "named": true
           },
@@ -452,6 +810,14 @@
           },
           {
             "type": "integer",
+            "named": true
+          },
+          {
+            "type": "message_name",
+            "named": true
+          },
+          {
+            "type": "out",
             "named": true
           },
           {
@@ -471,7 +837,19 @@
             "named": true
           },
           {
+            "type": "put",
+            "named": true
+          },
+          {
             "type": "real",
+            "named": true
+          },
+          {
+            "type": "slot",
+            "named": true
+          },
+          {
+            "type": "slot_sequence",
             "named": true
           },
           {
@@ -484,6 +862,10 @@
           },
           {
             "type": "symbol",
+            "named": true
+          },
+          {
+            "type": "tilde_infix",
             "named": true
           }
         ]
@@ -517,6 +899,10 @@
             "named": true
           },
           {
+            "type": "get",
+            "named": true
+          },
+          {
             "type": "group",
             "named": true
           },
@@ -526,6 +912,14 @@
           },
           {
             "type": "integer",
+            "named": true
+          },
+          {
+            "type": "message_name",
+            "named": true
+          },
+          {
+            "type": "out",
             "named": true
           },
           {
@@ -545,7 +939,19 @@
             "named": true
           },
           {
+            "type": "put",
+            "named": true
+          },
+          {
             "type": "real",
+            "named": true
+          },
+          {
+            "type": "slot",
+            "named": true
+          },
+          {
+            "type": "slot_sequence",
             "named": true
           },
           {
@@ -558,6 +964,10 @@
           },
           {
             "type": "symbol",
+            "named": true
+          },
+          {
+            "type": "tilde_infix",
             "named": true
           }
         ]
@@ -635,6 +1045,10 @@
           "named": true
         },
         {
+          "type": "get",
+          "named": true
+        },
+        {
           "type": "group",
           "named": true
         },
@@ -644,6 +1058,14 @@
         },
         {
           "type": "integer",
+          "named": true
+        },
+        {
+          "type": "message_name",
+          "named": true
+        },
+        {
+          "type": "out",
           "named": true
         },
         {
@@ -663,7 +1085,19 @@
           "named": true
         },
         {
+          "type": "put",
+          "named": true
+        },
+        {
           "type": "real",
+          "named": true
+        },
+        {
+          "type": "slot",
+          "named": true
+        },
+        {
+          "type": "slot_sequence",
           "named": true
         },
         {
@@ -676,6 +1110,10 @@
         },
         {
           "type": "symbol",
+          "named": true
+        },
+        {
+          "type": "tilde_infix",
           "named": true
         }
       ]
@@ -714,6 +1152,10 @@
           "named": true
         },
         {
+          "type": "get",
+          "named": true
+        },
+        {
           "type": "group",
           "named": true
         },
@@ -723,6 +1165,14 @@
         },
         {
           "type": "integer",
+          "named": true
+        },
+        {
+          "type": "message_name",
+          "named": true
+        },
+        {
+          "type": "out",
           "named": true
         },
         {
@@ -742,7 +1192,19 @@
           "named": true
         },
         {
+          "type": "put",
+          "named": true
+        },
+        {
           "type": "real",
+          "named": true
+        },
+        {
+          "type": "slot",
+          "named": true
+        },
+        {
+          "type": "slot_sequence",
           "named": true
         },
         {
@@ -756,9 +1218,130 @@
         {
           "type": "symbol",
           "named": true
+        },
+        {
+          "type": "tilde_infix",
+          "named": true
         }
       ]
     }
+  },
+  {
+    "type": "put",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "binary",
+          "named": true
+        },
+        {
+          "type": "blank",
+          "named": true
+        },
+        {
+          "type": "blank_default",
+          "named": true
+        },
+        {
+          "type": "blank_null_sequence",
+          "named": true
+        },
+        {
+          "type": "blank_sequence",
+          "named": true
+        },
+        {
+          "type": "call",
+          "named": true
+        },
+        {
+          "type": "get",
+          "named": true
+        },
+        {
+          "type": "group",
+          "named": true
+        },
+        {
+          "type": "infix",
+          "named": true
+        },
+        {
+          "type": "integer",
+          "named": true
+        },
+        {
+          "type": "message_name",
+          "named": true
+        },
+        {
+          "type": "out",
+          "named": true
+        },
+        {
+          "type": "part",
+          "named": true
+        },
+        {
+          "type": "pattern",
+          "named": true
+        },
+        {
+          "type": "postfix",
+          "named": true
+        },
+        {
+          "type": "prefix",
+          "named": true
+        },
+        {
+          "type": "put",
+          "named": true
+        },
+        {
+          "type": "real",
+          "named": true
+        },
+        {
+          "type": "slot",
+          "named": true
+        },
+        {
+          "type": "slot_sequence",
+          "named": true
+        },
+        {
+          "type": "span",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "symbol",
+          "named": true
+        },
+        {
+          "type": "tilde_infix",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "slot",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "slot_sequence",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "source_file",
@@ -794,6 +1377,10 @@
           "named": true
         },
         {
+          "type": "get",
+          "named": true
+        },
+        {
           "type": "group",
           "named": true
         },
@@ -803,6 +1390,14 @@
         },
         {
           "type": "integer",
+          "named": true
+        },
+        {
+          "type": "message_name",
+          "named": true
+        },
+        {
+          "type": "out",
           "named": true
         },
         {
@@ -822,7 +1417,19 @@
           "named": true
         },
         {
+          "type": "put",
+          "named": true
+        },
+        {
           "type": "real",
+          "named": true
+        },
+        {
+          "type": "slot",
+          "named": true
+        },
+        {
+          "type": "slot_sequence",
           "named": true
         },
         {
@@ -835,6 +1442,10 @@
         },
         {
           "type": "symbol",
+          "named": true
+        },
+        {
+          "type": "tilde_infix",
           "named": true
         }
       ]
@@ -873,6 +1484,10 @@
           "named": true
         },
         {
+          "type": "get",
+          "named": true
+        },
+        {
           "type": "group",
           "named": true
         },
@@ -882,6 +1497,14 @@
         },
         {
           "type": "integer",
+          "named": true
+        },
+        {
+          "type": "message_name",
+          "named": true
+        },
+        {
+          "type": "out",
           "named": true
         },
         {
@@ -901,7 +1524,19 @@
           "named": true
         },
         {
+          "type": "put",
+          "named": true
+        },
+        {
           "type": "real",
+          "named": true
+        },
+        {
+          "type": "slot",
+          "named": true
+        },
+        {
+          "type": "slot_sequence",
           "named": true
         },
         {
@@ -914,6 +1549,117 @@
         },
         {
           "type": "symbol",
+          "named": true
+        },
+        {
+          "type": "tilde_infix",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tilde_infix",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "binary",
+          "named": true
+        },
+        {
+          "type": "blank",
+          "named": true
+        },
+        {
+          "type": "blank_default",
+          "named": true
+        },
+        {
+          "type": "blank_null_sequence",
+          "named": true
+        },
+        {
+          "type": "blank_sequence",
+          "named": true
+        },
+        {
+          "type": "call",
+          "named": true
+        },
+        {
+          "type": "get",
+          "named": true
+        },
+        {
+          "type": "group",
+          "named": true
+        },
+        {
+          "type": "infix",
+          "named": true
+        },
+        {
+          "type": "integer",
+          "named": true
+        },
+        {
+          "type": "message_name",
+          "named": true
+        },
+        {
+          "type": "out",
+          "named": true
+        },
+        {
+          "type": "part",
+          "named": true
+        },
+        {
+          "type": "pattern",
+          "named": true
+        },
+        {
+          "type": "postfix",
+          "named": true
+        },
+        {
+          "type": "prefix",
+          "named": true
+        },
+        {
+          "type": "put",
+          "named": true
+        },
+        {
+          "type": "real",
+          "named": true
+        },
+        {
+          "type": "slot",
+          "named": true
+        },
+        {
+          "type": "slot_sequence",
+          "named": true
+        },
+        {
+          "type": "span",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "symbol",
+          "named": true
+        },
+        {
+          "type": "tilde_infix",
           "named": true
         }
       ]
@@ -929,6 +1675,14 @@
   },
   {
     "type": "!=",
+    "named": false
+  },
+  {
+    "type": "#",
+    "named": false
+  },
+  {
+    "type": "##",
     "named": false
   },
   {
@@ -1056,6 +1810,10 @@
     "named": false
   },
   {
+    "type": "::",
+    "named": false
+  },
+  {
     "type": ":=",
     "named": false
   },
@@ -1077,6 +1835,10 @@
   },
   {
     "type": "<->",
+    "named": false
+  },
+  {
+    "type": "<<",
     "named": false
   },
   {
@@ -1117,6 +1879,14 @@
   },
   {
     "type": ">=",
+    "named": false
+  },
+  {
+    "type": ">>",
+    "named": false
+  },
+  {
+    "type": ">>>",
     "named": false
   },
   {
@@ -1189,6 +1959,10 @@
     "named": true
   },
   {
+    "type": "out",
+    "named": true
+  },
+  {
     "type": "real",
     "named": true
   },
@@ -1222,6 +1996,10 @@
   },
   {
     "type": "}",
+    "named": false
+  },
+  {
+    "type": "~",
     "named": false
   },
   {
