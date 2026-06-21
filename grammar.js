@@ -416,6 +416,7 @@
             seq($._expression, "-", $._expression),
           ),
           prec.left(PRECEDENCE_STAR, seq($._expression, "*", $._expression)),
+          prec.left(PRECEDENCE_LONGNAME_INVISIBLETIMES, seq($._expression, "⁢", $._expression)),
           prec.left(PRECEDENCE_DOT, seq($._expression, ".", $._expression)),
           prec.left(
             PRECEDENCE_STARSTAR,
